@@ -1,5 +1,13 @@
 const express = require('express');
+const path = require('path');
+const dotenv = require('dotenv')
+//set the .env file configuration
+dotenv.config({
+    path: '.env'
+});
+
 const connection = require('./db')
+
 
 //create app
 const app = express();
@@ -57,7 +65,7 @@ app.get('/getrecord/:id', (req, res) => {
 });
 
 //create server
-app.listen('3000', () => {
+app.listen(process.env.HTTP_PORT, () => {
     console.log('starver started');
 
 });
