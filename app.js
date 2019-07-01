@@ -1,17 +1,5 @@
 const express = require('express');
-const mysql = require('mysql');
-
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'simple'
-});
-
-connection.connect((err) => {
-    if (err) throw error;
-    console.log('DB Connected');
-});
+const connection = require('./db')
 
 //create app
 const app = express();
@@ -49,10 +37,7 @@ app.get('/insert', (req, res) => {
         console.log('Post added: ', result);
         res.send(result);
     });
-    //connection.
-
 });
-
 
 //rout for get a specific row (id)
 app.get('/getrecord/:id', (req, res) => {
@@ -64,17 +49,12 @@ app.get('/getrecord/:id', (req, res) => {
             res.send(error);
             return;
         }
-
         console.log('Search for id: ', results);
         res.send(results);
 
     });
 
-
 });
-
-
-//connection.end();
 
 //create server
 app.listen('3000', () => {
