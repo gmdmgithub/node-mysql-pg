@@ -1,17 +1,10 @@
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv')
-//set the .env file configuration
-dotenv.config({
-    path: '.env'
-});
-
 const connection = require('./db')
 
 
 //create app
 const app = express();
-
 
 //lest add some rout
 // - get list
@@ -50,22 +43,20 @@ app.get('/insert', (req, res) => {
 //rout for get a specific row (id)
 app.get('/getrecord/:id', (req, res) => {
 
-    let sql = `SELECT * FROM users where id=${req.params.id}`;
-    let query = connection.query(sql, (err, results) => {
-
+    const sql = `SELECT * FROM users where id=${req.params.id}`;
+    connection.query(sql, (err, results) => {
         if (err) {
             res.send(error);
             return;
         }
-        console.log('Search for id: ', results);
+        console.log('Search for id: ', req.params.id);
         res.send(results);
-
     });
 
 });
 
-//create server
+//create server and listen on port
 app.listen(process.env.HTTP_PORT, () => {
-    console.log('starver started');
+    console.log(`Server started at port ${process.env.HTTP_PORT}`);
 
 });

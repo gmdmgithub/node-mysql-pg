@@ -21,5 +21,6 @@ connection.connect((err) => {
 });
 
 module.exports = {
-    connection
+    connection,
+    dotenv
 } 
